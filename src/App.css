@@ -1,0 +1,20 @@
+button {
+  background-image: linear-gradient(to right, #52c234 0%, #061700  51%, #52c234  100%);
+  margin: 1rem;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  border-radius: 10px;
+  border: none;
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: 1px;
+  }
+
+button:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+  }
+       
