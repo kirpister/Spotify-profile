@@ -1,20 +1,169 @@
-button {
-  background-image: linear-gradient(to right, #52c234 0%, #061700  51%, #52c234  100%);
-  margin: 1rem;
-  padding: 1rem 2rem;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;            
-  border-radius: 10px;
-  border: none;
-  font-family: 'Rubik', sans-serif;
+  /* CURRENT TRACK */
+
+.header-img {
+  background-image: url(./assets/nnneon.svg);
+  height: 35vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  filter: drop-shadow(2px 1px 2px rgb(32, 32, 32));
+  text-align: center;
+}
+
+.current-track {
+  text-align: center;
+  border: 1px solid rgb(118, 255, 118);
+  border-radius: .5rem;
+  width: fit-content;
+  padding: .3rem 1.2rem .3rem 1.2rem;
+  margin: 0 auto;
+}
+
+.current-track p {
+  font-weight: bold;
+}
+
+.current-track span {
+  color: rgb(118, 255, 118);
+  font-weight: normal;
+}
+
+
+/* LANDING PAGE */
+
+.intro {
+  background-image: url(./assets/ttten.svg);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-text {
+  width: 40vw;
+  margin: 5rem;
+}
+
+.intro p {
   letter-spacing: 1px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* TOP ARTISTS */
+
+.artist {
+  font-weight: bold;
+}
+
+.top-artists {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-artists img {
+  width: 60px;
+  height: 60px;
+  margin: -5px;
+  margin-left: .1rem;
+  border-radius: 50%;
+}
+
+/* TOP TRACKS */
+
+.top-tracks img {
+  width: 60px;
+  height: auto;
+  margin-top: .5rem;
+}
+
+.top-tracks span {
+  margin-left: .5rem;
+}
+
+/* TRACKS & ARTISTS */
+
+.top-div {
+  margin: 5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.list-div {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+}
+
+.top-tracks p {
+  margin-left: 1rem;
+}
+
+.top-artists p {
+  margin-left: 2rem;
+}
+
+.top-artists, 
+.top-tracks {
+  /* border: 1px solid #1db9548a; */
+  border-radius: 1rem;
+  background-color: #25252587;
+  width: 45vw;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+
+/* MOBILE */
+
+@media screen and (max-width: 600px) {
+
+
+  .intro h2 {
+    font-size: 2rem;
+    text-align: center;
   }
 
-button:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+  .top-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
   }
-       
+
+  .top-artists,
+  .top-tracks,
+  .list-div {
+    width: 95vw;
+    padding: 0;
+  }
+
+  .top-div p, span {
+    font-size: .7rem;
+  }
+
+  .top-div img {
+    width: 50px;
+    height: 50px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .top-artists p {
+    padding-left: 1rem;
+  }
+
+  .current-track p, span {
+    font-size: 0.7rem;
+  }
+}
