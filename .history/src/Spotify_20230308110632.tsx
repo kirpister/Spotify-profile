@@ -116,6 +116,7 @@ const Spotify: React.FC = () => {
     getTopArtists();
     getUserData();
   }, [token]);
+
   return (
     <>
       <div className="wrapper">
@@ -126,16 +127,12 @@ const Spotify: React.FC = () => {
                 Logged in as <a href="/">{userData?.display_name}</a>
               </p>
             ) : (
-              <button onClick={handleLogin}>Log In</button>
+              <button onClick={handleLogin}>Sign In</button>
             )}
 
-            {userData ? (
-              <a href="https://accounts.spotify.com/fi/status">
-                <button>Log Out</button>
-              </a>
-            ) : (
-              ""
-            )}
+            <a href="https://accounts.spotify.com/fi/status">
+              <button>Log Out</button>
+            </a>
           </div>
         </header>
         {token ? (
