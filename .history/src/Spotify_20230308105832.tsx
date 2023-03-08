@@ -122,14 +122,10 @@ const Spotify: React.FC = () => {
       <div className="wrapper">
         <header>
           <div className="log-out">
-            {userData ? (
-              <p>
-                Logged in as <a href="/">{userData?.display_name}</a>
-              </p>
-            ) : (
-              ""
-            )}
-
+             {
+              userData? <p>Logged in as <a href="/">{userData?.display_name}</a></p>}
+              
+            
             <a href="https://accounts.spotify.com/fi/status">
               <button>Log Out</button>
             </a>

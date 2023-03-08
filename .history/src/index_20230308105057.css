@@ -47,15 +47,6 @@ li {
   font-size: 1.3rem;
 }
 
-a {
-  color: #fff;
-}
-
-.heading {
-  backdrop-filter: blur(10px);
-  padding: 1rem;
-}
-
 footer {
   border-top: 1px solid #333;
   padding: 0.2rem;

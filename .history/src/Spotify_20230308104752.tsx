@@ -117,24 +117,11 @@ const Spotify: React.FC = () => {
     getUserData();
   }, [token]);
 
+  console.log(userData);
+
   return (
     <>
       <div className="wrapper">
-        <header>
-          <div className="log-out">
-            {userData ? (
-              <p>
-                Logged in as <a href="/">{userData?.display_name}</a>
-              </p>
-            ) : (
-              ""
-            )}
-
-            <a href="https://accounts.spotify.com/fi/status">
-              <button>Log Out</button>
-            </a>
-          </div>
-        </header>
         {token ? (
           <div className="wrapper">
             <div className="header-img">
@@ -177,12 +164,20 @@ const Spotify: React.FC = () => {
                 ))}
               </div>
             </div>
+            <div className="log-out">
+              <p>
+                Logged in as <a>{userData?.display_name}</a>
+              </p>
+              <a href="https://accounts.spotify.com/fi/status">
+                <button>Log Out</button>
+              </a>
+            </div>
           </div>
         ) : (
           // MAIN PAGE BEFORE AUTH
 
           <div className="intro">
-            <h2 className="header">Your Own Spotify Profile</h2>
+            <h2>Spotify profile!</h2>
             <p className="intro-text">
               Login to get your personalized playlists.
             </p>
