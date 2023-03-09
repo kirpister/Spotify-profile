@@ -20,7 +20,7 @@
   border: 1px solid rgb(118, 255, 118);
   border-radius: .5rem;
   width: fit-content;
-  padding: .3rem 1.2rem .3rem 1.2rem;
+  padding: 1rem 1.2rem 1rem 1.2rem;
   margin: 0 auto;
 }
 
@@ -63,12 +63,14 @@
   font-weight: bold;
 }
 
-.top-artists {
+.top-artists,
+.top-artists-long {
   display: flex;
   flex-direction: column;
 }
 
-.top-artists img {
+.top-artists img, 
+.top-artists-long img {
   width: 60px;
   height: 60px;
   margin: -5px;
@@ -78,13 +80,15 @@
 
 /* TOP TRACKS */
 
-.top-tracks img {
+.top-tracks img, 
+.top-tracks-long img {
   width: 60px;
   height: auto;
   margin-top: .5rem;
 }
 
-.top-tracks span {
+.top-tracks span,
+.top-tracks-long span {
   margin-left: .5rem;
 }
 
@@ -102,11 +106,13 @@
   margin: 1rem;
 }
 
-.top-tracks p {
+.top-tracks p,
+.top-tracks-long p {
   margin-left: 1rem;
 }
 
-.top-artists p {
+.top-artists p,
+.top-artists-long p {
   margin-left: 2rem;
 }
 
@@ -119,6 +125,39 @@
   padding: 1.5rem;
   margin: 1rem;
 }
+
+
+/* LONG TERM TRACKS & ARTISTS */
+
+.long-term {
+  margin: 5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.top-artists-long,
+.top-tracks-long {
+  border-radius: 1rem;
+  background-color: #25252587;
+  width: 45vw;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+/* LONG / SHORT TERM BUTTON */
+
+.switch-btn-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.switch-btn  {
+  background: transparent;
+  border: 1px solid rgb(118, 255, 118);
+  padding: .9rem;
+  margin: 5rem 0 -5rem 0;
+}
+
 
 
 /* MOBILE */

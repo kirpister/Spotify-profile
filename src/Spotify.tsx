@@ -32,6 +32,16 @@ const Spotify: React.FC = () => {
   const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [tracksLong, setTracksLong] = useState<Track[]>([]);
+  const [artistsLong, setArtistsLong] = useState<Artist[]>([]);
+
+  const [switchDivs, setSwitchDivs] = useState<boolean>(false);
+  const [term, setTerm] = useState<string>('Show Long Term');
+
+  const handleClick = () => {
+    setSwitchDivs(!switchDivs);
+    setTerm(!switchDivs ? 'Show Short Term' : 'Show Long Term')
+  };
 
 
   // AUTH
@@ -66,7 +76,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopTracks = async () => {
-      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=5", {
+      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -75,7 +85,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopArtists = async () => {
-      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5", {
+      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=5", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -83,9 +93,29 @@ const Spotify: React.FC = () => {
       setArtists(response.data.items);
     };
 
+    const getTopTracksLong = async () => {
+      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=15", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setTracksLong(response.data.items);
+    };
+
+    const getTopArtistsLong = async () => {
+      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=15", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setArtistsLong(response.data.items);
+    };
+
     getCurrentTrack();
     getTopTracks();
     getTopArtists();
+    getTopTracksLong();
+    getTopArtistsLong();
 
   }, [token]);
 
@@ -106,6 +136,15 @@ const Spotify: React.FC = () => {
           ) : (
             <h4>Loading current track...</h4>
           )}
+
+          {/* SHORT TERM ARTISTS AND TRACKS CONDITIONALLY RENDERS THE DIV BASED ON BTN CLICK*/}
+
+          <div className="switch-btn-cont">    
+          <button className="switch-btn" onClick={handleClick}>{term}</button>
+          </div>
+
+          {!switchDivs ? (
+
         <div className="top-div">
 
           <div className="top-artists">
@@ -127,6 +166,32 @@ const Spotify: React.FC = () => {
       ))}</div>  
 
           </div>
+
+          ) : (
+
+             <div className="long-term">
+
+            <div className="top-artists-long">
+            <h3>Top Artists</h3>
+            {artistsLong.map(artistL => (
+              <div className="list-div" key={artistL.id}>
+              <img src={artistL.images[0].url} alt={artistL.name} />
+              <p>{artistL.name}</p>
+          </div>
+        ))}</div>
+
+          <div className="top-tracks-long">
+            <h3>Top Tracks Long Term</h3>
+            {tracksLong.map(trackL => (
+              <div className="list-div" key={trackL.id}>
+              <img src={trackL.album.images[0].url} alt={trackL.name} />
+              <p>{trackL.artists[0].name} -</p><span>{trackL.name}</span>
+          </div>
+        ))}</div>  
+        
+         </div>
+          )};
+
           <div className="log-out"><a href="https://accounts.spotify.com/fi/status"><button>Log Out</button></a></div>
         </div>
 
