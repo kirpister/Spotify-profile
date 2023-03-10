@@ -1,13 +1,15 @@
-import Footer from "./Footer";
-import Spotify from "./Spotify";
+import LogIn from "./Components/LogIn";
+import Footer from "./Components/Footer";
+
 
 const App = () => {
 
   return (
-    <div className="App">
-      <Spotify />
-      <Footer />
-    </div>
+      <div className="App">
+        <LogIn/>
+        <Footer/>
+      </div>
+    
   );
 };
 
