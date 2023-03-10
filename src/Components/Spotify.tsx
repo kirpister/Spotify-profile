@@ -38,7 +38,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopTracks = async () => {
-      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5", {
+      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -47,7 +47,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopArtists = async () => {
-      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=5", {
+      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -56,7 +56,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopTracksLong = async () => {
-      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=15", {
+      const response = await axios.get<{ items: Track[] }>("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -65,7 +65,7 @@ const Spotify: React.FC = () => {
     };
 
     const getTopArtistsLong = async () => {
-      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=15", {
+      const response = await axios.get<{ items: Artist[] }>("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -109,7 +109,7 @@ const Spotify: React.FC = () => {
               <div className="top-div">
 
                 <div className="top-artists" >
-                  <h3>Top Artists</h3>
+                  <h3>Top Artists Short Term</h3>
                   {artists.map(artist => (
 
                     <div className="list-div" key={artist.id} >
@@ -120,7 +120,7 @@ const Spotify: React.FC = () => {
                   ))}</div>
 
                 <div className="top-tracks">
-                  <h3>Top Tracks</h3>
+                  <h3>Top Tracks Short Term</h3>
                   {tracks.map(track => (
                     <div className="list-div" key={track.id}>
                       <img src={track.album.images[0].url} alt={track.name} />
