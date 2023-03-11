@@ -18,4 +18,11 @@ interface CurrentTrack {
   };
 }
 
-export type { Artist, Track, CurrentTrack };
+interface User {
+  id: string;
+  display_name: string;
+  email: string;
+  images: { url: string }[];
+}
+
+export type { Artist, Track, CurrentTrack, User };

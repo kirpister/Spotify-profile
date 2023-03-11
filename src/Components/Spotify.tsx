@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Artist, Track, CurrentTrack } from "../Modules/Interfaces";
+import { Artist, Track, CurrentTrack, User } from "../Modules/Interfaces";
 import axios from "axios";
 import "../App.css";
 import { LoginContext } from "./LogIn";
@@ -11,6 +11,7 @@ const Spotify: React.FC = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [tracksLong, setTracksLong] = useState<Track[]>([]);
   const [artistsLong, setArtistsLong] = useState<Artist[]>([]);
+  const [userData, setUserData] = useState<User>();
 
   const [switchDivs, setSwitchDivs] = useState<boolean>(false);
   const [term, setTerm] = useState<string>("Show Long Term");
@@ -28,6 +29,13 @@ const Spotify: React.FC = () => {
 
   useEffect(() => {
     if (!token) return;
+
+    const getUserData = async () => {
+      const response = await axios.get<User>("https://api.spotify.com/v1/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserData(response.data);
+    };
 
     const getCurrentTrack = async () => {
       const response = await axios.get<CurrentTrack>(
@@ -87,6 +95,7 @@ const Spotify: React.FC = () => {
       setArtistsLong(response.data.items);
     };
 
+    getUserData();
     getCurrentTrack();
     getTopTracks();
     getTopArtists();
@@ -98,8 +107,29 @@ const Spotify: React.FC = () => {
     <>
  
           <div className="wrapper">
+
+          <header>
+          <div className="log-out">
+            {userData ? (
+              <p>
+                Logged in as <a href="/">{userData?.display_name}</a>
+              </p>
+            ) : (
+              <></>
+            )}
+
+            {userData ? (
+              <a href="https://accounts.spotify.com/fi/status">
+                <button>Log Out</button>
+              </a>
+            ) : (
+              ""
+            )}
+          </div>
+        </header>
+
             <div className="header-img">
-              <h2 className="heading">Spotify profile</h2>
+              <h2 className="heading"> Hello, <span>{userData?.display_name}</span></h2>
             </div>
             {currentTrack ? (
               <div className="current-track">
