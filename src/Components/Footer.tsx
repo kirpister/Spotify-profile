@@ -1,5 +1,5 @@
 import React from 'react';
-import SpotifyLogo from './assets/Spotify_Logo.png';
+import SpotifyLogo from '../assets/Spotify_Logo.png';
 
 const Footer: React.FC = () => {
     return (
