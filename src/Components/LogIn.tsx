@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import queryString from "query-string";
 import '../App.css';
-// import Footer from "./Footer";
+
 import Spotify from "./Spotify";
 
 export const LoginContext = createContext("");
@@ -32,7 +32,7 @@ const LogIn = () => {
                 {token ? (
                     <>
                         <Spotify />
-                        {/* <Footer /> */}
+
                     </>
                 ) : (
                     <div className="intro">
