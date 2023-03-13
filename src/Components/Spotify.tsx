@@ -209,13 +209,8 @@ const Spotify: React.FC = () => {
                 </div>
               </div>
             )}
-            <div className="log-out">
-              <a href="https://accounts.spotify.com/fi/status">
-                <button>Log Out</button>
-              </a>
-            </div>
           </div>
-        
+      
    
     </>
   );

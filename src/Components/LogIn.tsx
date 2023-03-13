@@ -9,7 +9,7 @@ export const LoginContext = createContext("");
 const LogIn = () => {
     const [token, setToken] = useState<string>('');
 
-    const scopes = ["user-read-playback-state", "user-library-read", "user-top-read"];
+    const scopes = ["user-read-playback-state", "user-library-read", "user-top-read", "user-read-recently-played"];
 
     const handleLogin = () => {
         const redirectToSpotify = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=${scopes.join(

@@ -25,4 +25,5 @@ interface User {
   images: { url: string }[];
 }
 
+
 export type { Artist, Track, CurrentTrack, User };
