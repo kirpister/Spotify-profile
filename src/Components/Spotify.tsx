@@ -138,22 +138,6 @@ const Spotify: React.FC = () => {
                   </div>
                 );
               })}
-
-              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
-                <div className="artist-modal">
-                  <div className="artist-detail">
-                    <p>{singleArtist?.name}</p>
-                    <img
-                      src={singleArtist?.images[0]?.url}
-                      alt={singleArtist?.name}
-                    />
-                    <p>{singleArtist?.type}</p>
-                    <p>{singleArtist?.popularity}</p>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
 
 
@@ -177,7 +161,7 @@ const Spotify: React.FC = () => {
                 <div
                   className="list-div"
                   key={artistL.id}
-                  onClick={() => getArtistInfo(artistL.id, artistL.name)}
+                  onClick={() => showModal(artistL.id)}
                 >
                   <img src={artistL.images[0].url} alt={artistL.name} />
                   <p>{artistL.name}</p>
@@ -215,7 +199,7 @@ const Spotify: React.FC = () => {
             <button>Log Out</button>
           </a>
         </div>
-      {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
+      {singleArtist ? ( 
         <div
           className="artist-modal"
           onClick={() => setSingleArtist(undefined)}
