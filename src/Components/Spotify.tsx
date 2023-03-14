@@ -5,7 +5,7 @@ import {
   Track,
   CurrentTrack,
   User,
-  RecentTracks
+  RecentTracks,
 } from "../Modules/Interfaces";
 import "../App.css";
 import { LoginContext } from "./LogIn";
@@ -16,7 +16,6 @@ import {
   getTopTracks,
   getArtistInfo,
   getRecentTracks,
-
 } from "../Modules/DataService";
 
 const Spotify: React.FC = () => {
@@ -47,17 +46,24 @@ const Spotify: React.FC = () => {
   useEffect(() => {
     if (!token) return;
     const fetchData = async () => {
-
-      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong, recentTracks] = await Promise.all([
+      const [
+        userData,
+        currentTrack,
+        artists,
+        artistsLong,
+        tracks,
+        tracksLong,
+        recentTracks,
+      ] = await Promise.all([
         getUserData(token),
         getCurrentTrack(token),
         getTopArtists(token, "short_term"),
         getTopArtists(token, "long_term"),
         getTopTracks(token, "short_term"),
         getTopTracks(token, "long_term"),
-        getRecentTracks(token), 
+        getRecentTracks(token),
       ]);
-  
+
       setUserData(userData);
       setCurrentTrack(currentTrack);
       setArtists(artists);
@@ -99,7 +105,7 @@ const Spotify: React.FC = () => {
           </h2>
         </div>
         <div className="user-img">
-          <img src={userData?.images[0].url} alt="user-img"/>
+          {/* <img src={userData?.images[0].url} alt="user-img"/> */}
         </div>
         {currentTrack ? (
           <div className="current-track">
@@ -140,8 +146,6 @@ const Spotify: React.FC = () => {
               })}
             </div>
 
-
-
             <div className="top-tracks">
               <h3>Top Tracks Short Term</h3>
               {tracks.map((track) => (
@@ -169,37 +173,38 @@ const Spotify: React.FC = () => {
               ))}
             </div>
 
-
-                <div className="top-tracks-long">
-                  <h3>Top Tracks Long Term</h3>
-                  {tracksLong.map((trackL) => (
-                    <div className="list-div" key={trackL.id}>
-                      <img src={trackL.album.images[0].url} alt={trackL.name} />
-                      <p>{trackL.artists[0].name} -</p>
-                      <span>{trackL.name}</span>
-                    </div>
-                  ))}
+            <div className="top-tracks-long">
+              <h3>Top Tracks Long Term</h3>
+              {tracksLong.map((trackL) => (
+                <div className="list-div" key={trackL.id}>
+                  <img src={trackL.album.images[0].url} alt={trackL.name} />
+                  <p>{trackL.artists[0].name} -</p>
+                  <span>{trackL.name}</span>
                 </div>
-              </div>
-            )}
-          </div>   
-
-          <div className="recent-tracks">
-            <h3>Recently Played Tracks</h3>
-              {recentTracks.map((track) => (
-                <div className="list-div" key={track.track.id}>
-                <img src={track.track.album.images[0].url} alt="album cover" /> <p>{track.track.album.artists[0].name} - {track.track.name} </p>
-              </div>
               ))}
             </div>
-            
-  
-        <div className="log-out">
-          <a href="https://accounts.spotify.com/fi/status">
-            <button>Log Out</button>
-          </a>
-        </div>
-      {singleArtist ? ( 
+          </div>
+        )}
+      </div>
+
+      <div className="recent-tracks">
+        <h3>Recently Played Tracks</h3>
+        {recentTracks.map((track) => (
+          <div className="list-div" key={track.track.id}>
+            <img src={track.track.album.images[0].url} alt="album cover" />{" "}
+            <p>
+              {track.track.album.artists[0].name} - {track.track.name}{" "}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="log-out">
+        <a href="https://accounts.spotify.com/fi/status">
+          <button>Log Out</button>
+        </a>
+      </div>
+      {singleArtist ? (
         <div
           className="artist-modal"
           onClick={() => setSingleArtist(undefined)}
@@ -219,19 +224,13 @@ const Spotify: React.FC = () => {
                 <span>Type</span>
                 {singleArtist?.type}
               </p> */}
-              
-                <p>Followers</p>
-              <span>
-                {singleArtist?.followers?.total.toLocaleString()}
-              </span>
 
-              
-                <p>Genres</p>
-              <span> 
-                {singleArtist?.genres.map((el) => el).join(", ")}
-              </span> 
-              
-       
+              <p>Followers</p>
+              <span>{singleArtist?.followers?.total.toLocaleString()}</span>
+
+              <p>Genres</p>
+              <span>{singleArtist?.genres.map((el) => el).join(", ")}</span>
+
               <button>
                 <a
                   href={singleArtist?.external_urls?.spotify}
@@ -246,7 +245,6 @@ const Spotify: React.FC = () => {
       ) : (
         ""
       )}
-
     </>
   );
 };
