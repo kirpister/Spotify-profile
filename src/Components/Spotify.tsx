@@ -75,6 +75,8 @@ const Spotify: React.FC = () => {
     fetchData();
   }, [token]);
 
+  console.log(userData);
+
   return (
     <>
       <div className="wrapper">
@@ -105,7 +107,11 @@ const Spotify: React.FC = () => {
           </h2>
         </div>
         <div className="user-img">
-          {/* <img src={userData?.images[0].url} alt="user-img"/> */}
+          {userData?.images[0] ? (
+            <img src={userData?.images[0].url} alt="user-img" />
+          ) : (
+            ""
+          )}
         </div>
         {currentTrack ? (
           <div className="current-track">
