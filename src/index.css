@@ -144,7 +144,7 @@ button:hover {
   background-color: rgb(33, 33, 33);
   border-radius: 11px;
   padding: 2rem;
-  max-width: 800px;
+  max-width: 900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   transition: all 0.3s ease-in-out;
@@ -154,7 +154,7 @@ button:hover {
   max-width: 250px;
   max-height: 250px;
   border-radius: 50%;
-  margin: 3rem;
+  margin: 4rem;
 }
 
 .artist-detail .details {

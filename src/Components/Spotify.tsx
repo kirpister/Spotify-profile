@@ -75,8 +75,6 @@ const Spotify: React.FC = () => {
     fetchData();
   }, [token]);
 
-  console.log(userData);
-
   return (
     <>
       <div className="wrapper">
@@ -225,11 +223,6 @@ const Spotify: React.FC = () => {
 
             <div className="details">
               <h2>{singleArtist?.name}</h2>
-
-              {/* <p>
-                <span>Type</span>
-                {singleArtist?.type}
-              </p> */}
 
               <p>Followers</p>
               <span>{singleArtist?.followers?.total.toLocaleString()}</span>
