@@ -173,6 +173,26 @@
   margin: 2rem;
 }
 
+/* RECENT TRACKS */
+
+.recent-tracks {
+  border-radius: 1rem;
+  background-color: #25252587;
+  width: 85vw;
+  padding: 1.5rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.recent-tracks img {
+  width: 60px;
+  margin: .5rem;
+}
+
+.recent-tracks p {
+  margin-left: .5rem;
+}
+
 
 /* MOBILE */
 

@@ -35,6 +35,24 @@ interface User {
   images: { url: string }[];
 }
 
+interface RecentTracks {
+  track: {
+    artists: [
+      {
+        name: string;
+      }
+    ];
+    images: [
+      {
+        url: string;
+      }
+    ];
+    name: string;
+    id: string;
+    track_number: number;
+  };
+}
 
-export type { Artist, ArtistMore, Track, CurrentTrack, User };
+
+export type { Artist, ArtistMore, Track, CurrentTrack, User, RecentTracks };
 

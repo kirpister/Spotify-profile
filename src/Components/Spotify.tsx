@@ -47,7 +47,7 @@ const Spotify: React.FC = () => {
     if (!token) return;
     const fetchData = async () => {
 
-      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong] = await Promise.all([
+      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong, recentTracks] = await Promise.all([
         getUserData(token),
         getCurrentTrack(token),
         getTopArtists(token, "short_term"),
@@ -170,42 +170,6 @@ const Spotify: React.FC = () => {
                 </div>
               ))}
             </div>
-
-      
-              {/* {singleArtist.length > 0 ? (
-
-          </div>
-        ) : (
-          <div className="long-term">
-            <div className="top-artists-long">
-              <h3>Top Artists Long Term</h3>
-              {artistsLong.map((artistL) => (
-                <div
-                  className="list-div"
-                  key={artistL.id}
-                  onClick={() => { showModal(artistL.id) }}
-                >
-                  <img src={artistL.images[0].url} alt={artistL.name} />
-                  <p>{artistL.name}</p>
-                </div>
-              ))}
-              
-              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
-                <div className="artist-modal">
-                  <div className="artist-detail">
-                    <p>{singleArtist?.name}</p>
-                    <img
-                      src={singleArtist?.images[0]?.url}
-                      alt={singleArtist?.name}
-                    />
-                    <p>{singleArtist?.type}</p>
-                    <p>{singleArtist?.popularity}</p>
-                  </div>
-                </div>
-              ) : (
-                ""
-
-              )} */}
              </div>
                
             ) : (
@@ -240,17 +204,15 @@ const Spotify: React.FC = () => {
             )}
           </div>   
 
-          <div>
+          <div className="recent-tracks">
             <h3>Recently Played Tracks</h3>
-            <ul>
               {recentTracks.map((track) => (
-              <li key={track.played_at}>
-                {track.track.artist} - {track.track.name}
-              </li>
+                <div className="list-div" key={track.played_at}>
+                <img src={track.track.album.images[2].url} alt="album cover" /> <p>{track.track.artists[0].name} - {track.track.name} </p>
+              </div>
               ))}
-
-            </ul>
-          </div>    
+            </div>
+            
   
         <div className="log-out">
           <a href="https://accounts.spotify.com/fi/status">
