@@ -35,16 +35,28 @@ const getTopArtists = async (token: string, timeRange: string) => {
 };
 
 const getRecentTracks = async (token: string) => {
-  const response = await createAxiosInstance(token).get<{ items: any[]}>(
+  const response = await createAxiosInstance(token).get<{ items: any[] }>(
     "player/recently-played?limit=10"
   );
   return response.data.items;
 }
 
+// const getArtistInfo = async (token: string, id: string) => {
+//   const response = await createAxiosInstance(token).get<{
+//     items: ArtistMore[];
+//   }>(`/artists/${id}`);
+
+//   return response.data.items;
+// };
+
+
 export {
   getUserData,
+  // getArtistInfo,
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
   getRecentTracks
 };
+
+

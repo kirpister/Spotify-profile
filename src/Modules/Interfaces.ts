@@ -4,6 +4,16 @@ interface Artist {
   images: { url: string }[];
 }
 
+interface ArtistMore {
+  id: string;
+  name: string;
+  type: string;
+  images: { url: string }[];
+  followers: number;
+  genres: string[];
+  popularity: number;
+}
+
 interface Track {
   id: string;
   name: string;
@@ -26,6 +36,5 @@ interface User {
 }
 
 
+export type { Artist, ArtistMore, Track, CurrentTrack, User };
 
-
-export type { Artist, Track, CurrentTrack, User };

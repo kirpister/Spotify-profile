@@ -113,3 +113,32 @@ button:hover {
   letter-spacing: 1px;
   color: white;
 }
+
+.list-div {
+  cursor: pointer;
+}
+
+.top-artists {
+  position: relative;
+}
+
+/* MODAL */
+
+.artist-modal {
+  position: absolute;
+  right: 33%;
+  top: 10%;
+  max-width: 500px;
+}
+
+.artist-detail {
+  background-color: #fff;
+  border-radius: 11px;
+  padding: 2rem;
+  min-width: 330px;
+}
+
+.artist-detail {
+  display: block;
+  color: #000;
+}
