@@ -38,22 +38,22 @@ interface User {
 
 interface RecentTracks {
   track: {
-    artists: [
-      {
-        name: string;
-      }
-    ];
-    images: [
-      {
-        url: string;
-      }
-    ];
+    album: {
+      artists: [
+        {
+          name: string;
+        }
+      ];
+      images: [
+        {
+          url: string;
+        }
+      ];
+    };
     name: string;
     id: string;
     track_number: number;
   };
 }
 
-
 export type { Artist, ArtistMore, Track, CurrentTrack, User, RecentTracks };
-
