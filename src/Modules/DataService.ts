@@ -1,11 +1,20 @@
 import axios, { AxiosInstance } from "axios";
-import { Artist, Track, CurrentTrack, User, ArtistMore, RecentTracks } from "./Interfaces";
+import {
+  Artist,
+  Track,
+  CurrentTrack,
+  User,
+  ArtistMore,
+  RecentTracks,
+} from "./Interfaces";
 
 const createAxiosInstance = (token: string): AxiosInstance =>
   axios.create({
     baseURL: "https://api.spotify.com/v1",
-    headers: { Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
 
 const getUserData = async (token: string) => {
@@ -35,14 +44,16 @@ const getTopArtists = async (token: string, timeRange: string) => {
 };
 
 const getRecentTracks = async (token: string) => {
-  const response = await createAxiosInstance(token).get<{ items: RecentTracks[] }>(
-    "/me/player/recently-played?limit=10"
-  );
+  const response = await createAxiosInstance(token).get<{
+    items: RecentTracks[];
+  }>("/me/player/recently-played?limit=10");
   return response.data.items;
-}
+};
 
 const getArtistInfo = async (token: string, id: string) => {
-  const response = await createAxiosInstance(token).get<ArtistMore>(`/artists/${id}`);
+  const response = await createAxiosInstance(token).get<ArtistMore>(
+    `/artists/${id}`
+  );
   return response.data;
 };
 
@@ -52,7 +63,5 @@ export {
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
-  getRecentTracks
+  getRecentTracks,
 };
-
-
