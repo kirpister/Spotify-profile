@@ -66,7 +66,7 @@ const Spotify: React.FC = () => {
       setRecentTracks(recentTracks);
     };
     fetchData();
-
+    console.log(recentTracks)
     
   }, [token]);
 
