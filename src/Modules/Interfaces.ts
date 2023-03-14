@@ -6,10 +6,11 @@ interface Artist {
 
 interface ArtistMore {
   id: string;
+  external_urls: { spotify: string };
   name: string;
   type: string;
   images: { url: string }[];
-  followers: number;
+  followers: { url: null; total: number };
   genres: string[];
   popularity: number;
 }

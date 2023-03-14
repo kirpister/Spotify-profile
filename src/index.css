@@ -11,6 +11,7 @@ body {
   background: #181818;
   color: rgb(237, 237, 237);
   font-family: "Work Sans", sans-serif;
+  position: relative;
 }
 
 h2 {
@@ -49,6 +50,7 @@ li {
 
 a {
   color: #fff;
+  text-decoration: none;
 }
 
 .heading {
@@ -120,25 +122,53 @@ button:hover {
   cursor: pointer;
 }
 
-.top-artists {
-  position: relative;
-}
-
 .artist-modal {
   position: absolute;
-  right: 33%;
-  top: 10%;
-  max-width: 500px;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.357);
 }
 
 .artist-detail {
   background-color: #fff;
   border-radius: 11px;
   padding: 2rem;
-  min-width: 330px;
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.artist-detail {
+.artist-detail img {
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 50%;
+}
+
+.artist-detail .details {
+  line-height: 1.7;
+}
+
+.artist-detail .details h2 {
+  text-transform: uppercase;
+}
+
+.artist-detail .details p {
   display: block;
   color: #000;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.artist-detail button {
+  margin: 1rem 0 0 0;
+}
+
+.artist-detail span {
+  display: inline-block;
+  width: 150px;
 }

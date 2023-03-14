@@ -13,7 +13,7 @@ import {
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
-  getArtistInfo
+  getArtistInfo,
 } from "../Modules/DataService";
 
 const Spotify: React.FC = () => {
@@ -36,9 +36,9 @@ const Spotify: React.FC = () => {
 
   const showModal = async (artistid: string) => {
     const data = await getArtistInfo(token, artistid);
-    console.log(data)
-    setSingleArtist(data)
-  }
+    console.log(data);
+    setSingleArtist(data);
+  };
 
   // API CALLS
   useEffect(() => {
@@ -62,6 +62,8 @@ const Spotify: React.FC = () => {
     };
     fetchData();
   }, [token]);
+
+  console.log(token);
 
   return (
     <>
@@ -130,7 +132,7 @@ const Spotify: React.FC = () => {
                 );
               })}
 
-              {singleArtist ? (  //Crude display of a modal, shows up if there is data needs conditional rendering
+              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
                 <div className="artist-modal">
                   <div className="artist-detail">
                     <p>{singleArtist?.name}</p>
@@ -166,28 +168,14 @@ const Spotify: React.FC = () => {
                 <div
                   className="list-div"
                   key={artistL.id}
-                  onClick={() => { showModal(artistL.id) }}
+                  onClick={() => {
+                    showModal(artistL.id);
+                  }}
                 >
                   <img src={artistL.images[0].url} alt={artistL.name} />
                   <p>{artistL.name}</p>
                 </div>
               ))}
-              
-              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
-                <div className="artist-modal">
-                  <div className="artist-detail">
-                    <p>{singleArtist?.name}</p>
-                    <img
-                      src={singleArtist?.images[0]?.url}
-                      alt={singleArtist?.name}
-                    />
-                    <p>{singleArtist?.type}</p>
-                    <p>{singleArtist?.popularity}</p>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
 
             <div className="top-tracks-long">
@@ -209,6 +197,53 @@ const Spotify: React.FC = () => {
           </a>
         </div>
       </div>
+      {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
+        <div
+          className="artist-modal"
+          onClick={() => setSingleArtist(undefined)}
+        >
+          <div className="artist-detail">
+            <div>
+              <img
+                src={singleArtist?.images[0]?.url}
+                alt={singleArtist?.name}
+              />
+            </div>
+
+            <div className="details">
+              <h2>{singleArtist?.name}</h2>
+
+              <p>
+                <span>Type</span>
+                {singleArtist?.type}
+              </p>
+              <p>
+                <span>Followers</span>
+                {singleArtist?.followers?.total.toLocaleString()}
+              </p>
+
+              <p>
+                <span>Genres</span>
+                {singleArtist?.genres.map((el) => el).join(", ")}
+              </p>
+              <p>
+                <span>Position</span>
+                {singleArtist?.popularity}
+              </p>
+              <button>
+                <a
+                  href={singleArtist?.external_urls?.spotify}
+                  target="_blank noreferer"
+                >
+                  View Profile
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
