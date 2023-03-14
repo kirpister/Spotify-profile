@@ -215,19 +215,22 @@ const Spotify: React.FC = () => {
             <div className="details">
               <h2>{singleArtist?.name}</h2>
 
-              <p>
+              {/* <p>
                 <span>Type</span>
                 {singleArtist?.type}
-              </p>
-              <p>
-                <span>Followers</span>
+              </p> */}
+              
+                <p>Followers</p>
+              <span>
                 {singleArtist?.followers?.total.toLocaleString()}
-              </p>
+              </span>
 
-              <p>
-                <span>Genres</span>
+              
+                <p>Genres</p>
+              <span> 
                 {singleArtist?.genres.map((el) => el).join(", ")}
-              </p>
+              </span> 
+              
        
               <button>
                 <a
