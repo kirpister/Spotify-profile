@@ -75,8 +75,6 @@ const Spotify: React.FC = () => {
     fetchData();
   }, [token]);
 
-  console.log(userData);
-
   return (
     <>
       <div className="wrapper">
