@@ -148,16 +148,30 @@
 
 .switch-btn-cont {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .switch-btn  {
   background: transparent;
   border: 1px solid rgb(118, 255, 118);
   padding: .9rem;
-  margin: 5rem 0 -5rem 0;
+  margin: 5rem 0 -5rem 6rem;
 }
 
+
+/* USER */
+
+.user-img img {
+  width: 120px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.user-img {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
 
 
 /* MOBILE */

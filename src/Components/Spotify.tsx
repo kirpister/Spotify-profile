@@ -1,8 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { Artist, Track, CurrentTrack, User } from "../Modules/Interfaces";
-import axios from "axios";
 import "../App.css";
 import { LoginContext } from "./LogIn";
+import {
+  getUserData,
+  getCurrentTrack,
+  getTopArtists,
+  getTopTracks,
+  getRecentTracks
+} from "../Modules/DataService";
 
 const Spotify: React.FC = () => {
   const token = useContext(LoginContext);
@@ -12,6 +18,7 @@ const Spotify: React.FC = () => {
   const [tracksLong, setTracksLong] = useState<Track[]>([]);
   const [artistsLong, setArtistsLong] = useState<Artist[]>([]);
   const [userData, setUserData] = useState<User>();
+  const [recentTracks, setRecentTracks] = useState<any[]>([]);
 
   const [switchDivs, setSwitchDivs] = useState<boolean>(false);
   const [term, setTerm] = useState<string>("Show Long Term");
@@ -26,89 +33,35 @@ const Spotify: React.FC = () => {
   };
 
   // API CALLS
-
   useEffect(() => {
     if (!token) return;
-
-    const getUserData = async () => {
-      const response = await axios.get<User>("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUserData(response.data);
+    const fetchData = async () => {
+      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong] = await Promise.all([
+        getUserData(token),
+        getCurrentTrack(token),
+        getTopArtists(token, "short_term"),
+        getTopArtists(token, "long_term"),
+        getTopTracks(token, "short_term"),
+        getTopTracks(token, "long_term"),
+        getRecentTracks(token)
+      ]);
+      setUserData(userData);
+      setCurrentTrack(currentTrack);
+      setArtists(artists);
+      setArtistsLong(artistsLong);
+      setTracks(tracks);
+      setTracksLong(tracksLong);
+      setRecentTracks(recentTracks);
     };
-
-    const getCurrentTrack = async () => {
-      const response = await axios.get<CurrentTrack>(
-        "https://api.spotify.com/v1/me/player/currently-playing",{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setCurrentTrack(response.data);
-    };
-
-    const getTopTracks = async () => {
-      const response = await axios.get<{ items: Track[] }>(
-        "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10", {
-          headers: {
-          Authorization: `Bearer ${token}`
-      },
-        }
-      );
-      setTracks(response.data.items);
-    };
-
-    const getTopArtists = async () => {
-
-      const response = await axios.get<{ items: Artist[] }>(
-        "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10", {
-          headers: {
-          Authorization: `Bearer ${token}`
-          },
-        }
-      );
-      setArtists(response.data.items);
-    };
-
-    const getTopTracksLong = async () => {
-
-      const response = await axios.get<{ items: Track[] }>(
-        "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10", {
-          headers: {
-          Authorization: `Bearer ${token}`
-          },
-        }
-      );
-      setTracksLong(response.data.items);
-    };
-
-    const getTopArtistsLong = async () => {
-
-      const response = await axios.get<{ items: Artist[] }>(
-        "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10", {
-          headers: {
-          Authorization: `Bearer ${token}`
-          },
-        }
-      );
-      setArtistsLong(response.data.items);
-    };
-
-    getUserData();
-    getCurrentTrack();
-    getTopTracks();
-    getTopArtists();
-    getTopTracksLong();
-    getTopArtistsLong();
+    fetchData();
+    console.log(recentTracks);
+    
   }, [token]);
 
   return (
     <>
- 
-          <div className="wrapper">
-
-          <header>
+      <div className="wrapper">
+        <header>
           <div className="log-out">
             {userData ? (
               <p>
@@ -128,47 +81,49 @@ const Spotify: React.FC = () => {
           </div>
         </header>
 
-            <div className="header-img">
-              <h2 className="heading"> Hello, <span>{userData?.display_name}</span></h2>
-            </div>
-            {currentTrack ? (
-              <div className="current-track">
-                <p>
-                  Now playing:{" "}
-                  <span>
-                    {currentTrack.item.name} by{" "}
-                    {currentTrack.item.artists[0].name}
-                  </span>
-                </p>
-              </div>
-            ) : (
-              <h4>Looks like nothing is playing...</h4>
-            )}
+        <div className="header-img">
+          <h2 className="heading">
+            {" "}
+            Hello, <span>{userData?.display_name}</span>
+          </h2>
+        </div>
+        <div className="user-img">
+          <img src={userData?.images[0].url} alt="user-img"/>
+        </div>
+        {currentTrack ? (
+          <div className="current-track">
+            <p>
+              Now playing:{" "}
+              <span>
+                {currentTrack.item.name} by {currentTrack.item.artists[0].name}
+              </span>
+            </p>
+          </div>
+        ) : (
+          <h4>Looks like nothing is playing...</h4>
+        )}
 
-            {/* SHORT TERM ARTISTS AND TRACKS CONDITIONALLY RENDERS THE DIV BASED ON BTN CLICK*/}
+        {/* SHORT TERM ARTISTS AND TRACKS CONDITIONALLY RENDERS THE DIV BASED ON BTN CLICK*/}
 
-            <div className="switch-btn-cont">
-              <button className="switch-btn" onClick={handleClick}>
-                {term}
-              </button>
-            </div>
+        <div className="switch-btn-cont">
+          <button className="switch-btn" onClick={handleClick}>
+            {term}
+          </button>
+        </div>
 
-            {!switchDivs ? (
-              <div className="top-div">
-
-
-                <div className="top-artists" >
-                  <h3>Top Artists Short Term</h3>
-                  {artists.map(artist => (
-
-                    <div className="list-div" key={artist.id} >
-                       <img src={artist.images[0].url} alt={artist.name} />
-                      <p>{artist.name}</p>
-                    </div>
-                  ))}
+        {!switchDivs ? (
+          <div className="top-div">
+            <div className="top-artists">
+              <h3>Top Artists Short Term</h3>
+              {artists.map((artist) => (
+                <div className="list-div" key={artist.id}>
+                  <img src={artist.images[0].url} alt={artist.name} />
+                  <p>{artist.name}</p>
                 </div>
+              ))}
+            </div>
 
-                <div className="top-tracks">
+              <div className="top-tracks">
                   <h3>Top Tracks Short Term</h3>
                   {tracks.map(track => (
                       <div className="list-div" key={track.id}>
@@ -179,7 +134,9 @@ const Spotify: React.FC = () => {
                   ))}
 
                 </div>
+              
               </div>
+               
             ) : (
 
               <div className="long-term">
@@ -209,9 +166,24 @@ const Spotify: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
-      
-   
+          </div>   
+
+          <div>
+            <h3>Recently Played Tracks</h3>
+            <ul>
+              {recentTracks.map((track) => (
+              <li key={track.played_at}>
+                {track.track.artist} by {track.track.name}
+              </li>
+              ))}
+            </ul>
+          </div>    
+    
+        <div className="log-out">
+          <a href="https://accounts.spotify.com/fi/status">
+            <button>Log Out</button>
+          </a>
+        </div>
     </>
   );
 };
