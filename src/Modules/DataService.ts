@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { Artist, Track, CurrentTrack, User } from "./Interfaces";
+import { Artist, Track, CurrentTrack, User, ArtistMore } from "./Interfaces";
 
 const createAxiosInstance = (token: string): AxiosInstance =>
   axios.create({
@@ -35,24 +35,20 @@ const getTopArtists = async (token: string, timeRange: string) => {
 };
 
 const getRecentTracks = async (token: string) => {
-  const response = await createAxiosInstance(token).get<{ items: any[] }>(
+  const response = await createAxiosInstance(token).get<{ items: any}>(
     "player/recently-played?limit=10"
   );
   return response.data.items;
 }
 
-// const getArtistInfo = async (token: string, id: string) => {
-//   const response = await createAxiosInstance(token).get<{
-//     items: ArtistMore[];
-//   }>(`/artists/${id}`);
-
-//   return response.data.items;
-// };
-
+const getArtistInfo = async (token: string, id: string) => {
+  const response = await createAxiosInstance(token).get<ArtistMore>(`/artists/${id}`);
+  return response.data;
+};
 
 export {
   getUserData,
-  // getArtistInfo,
+  getArtistInfo,
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
