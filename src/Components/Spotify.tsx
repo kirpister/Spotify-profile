@@ -170,42 +170,6 @@ const Spotify: React.FC = () => {
                 </div>
               ))}
             </div>
-
-      
-              {/* {singleArtist.length > 0 ? (
-
-          </div>
-        ) : (
-          <div className="long-term">
-            <div className="top-artists-long">
-              <h3>Top Artists Long Term</h3>
-              {artistsLong.map((artistL) => (
-                <div
-                  className="list-div"
-                  key={artistL.id}
-                  onClick={() => { showModal(artistL.id) }}
-                >
-                  <img src={artistL.images[0].url} alt={artistL.name} />
-                  <p>{artistL.name}</p>
-                </div>
-              ))}
-              
-              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
-                <div className="artist-modal">
-                  <div className="artist-detail">
-                    <p>{singleArtist?.name}</p>
-                    <img
-                      src={singleArtist?.images[0]?.url}
-                      alt={singleArtist?.name}
-                    />
-                    <p>{singleArtist?.type}</p>
-                    <p>{singleArtist?.popularity}</p>
-                  </div>
-                </div>
-              ) : (
-                ""
-
-              )} */}
              </div>
                
             ) : (
