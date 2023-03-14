@@ -47,7 +47,7 @@ const Spotify: React.FC = () => {
     if (!token) return;
     const fetchData = async () => {
 
-      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong] = await Promise.all([
+      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong, recentTracks] = await Promise.all([
         getUserData(token),
         getCurrentTrack(token),
         getTopArtists(token, "short_term"),
@@ -66,7 +66,7 @@ const Spotify: React.FC = () => {
       setRecentTracks(recentTracks);
     };
     fetchData();
-
+    console.log(recentTracks)
     
   }, [token]);
 
@@ -204,17 +204,15 @@ const Spotify: React.FC = () => {
             )}
           </div>   
 
-          <div>
+          <div className="recent-tracks">
             <h3>Recently Played Tracks</h3>
-            <ul>
               {recentTracks.map((track) => (
-              <li key={track.played_at}>
-                {track.track.artist} - {track.track.name}
-              </li>
+                <div className="list-div" key={track.played_at}>
+                <img src={track.track.album.images[2].url} alt="album cover" /> <p>{track.track.artists[0].name} - {track.track.name} </p>
+              </div>
               ))}
-
-            </ul>
-          </div>    
+            </div>
+            
   
         <div className="log-out">
           <a href="https://accounts.spotify.com/fi/status">
