@@ -14,6 +14,7 @@ import {
   getTopArtists,
   getTopTracks,
   getArtistInfo,
+  getRecentTracks,
 } from "../Modules/DataService";
 
 const Spotify: React.FC = () => {
@@ -168,9 +169,7 @@ const Spotify: React.FC = () => {
                 <div
                   className="list-div"
                   key={artistL.id}
-                  onClick={() => {
-                    showModal(artistL.id);
-                  }}
+                  onClick={() => getArtistInfo(artistL.id, artistL.name)}
                 >
                   <img src={artistL.images[0].url} alt={artistL.name} />
                   <p>{artistL.name}</p>
