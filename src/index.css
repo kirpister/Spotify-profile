@@ -128,7 +128,7 @@ button:hover {
 /* MODAL */
 
 .artist-modal {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   display: flex;
@@ -141,7 +141,7 @@ button:hover {
 }
 
 .artist-detail {
-  background-color: #fff;
+  background-color: rgb(33, 33, 33);
   border-radius: 11px;
   padding: 2rem;
   max-width: 800px;
@@ -166,13 +166,13 @@ button:hover {
 
 .artist-detail .details p {
   display: block;
-  color: #000;
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
   font-size: 1.2rem;
 }
 
 .artist-detail button {
-  margin: 1rem 0 0 0;
+  margin: 2rem 0 1rem 0;
 }
 
 .artist-detail span {

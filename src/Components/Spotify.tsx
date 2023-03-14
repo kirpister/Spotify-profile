@@ -228,10 +228,7 @@ const Spotify: React.FC = () => {
                 <span>Genres</span>
                 {singleArtist?.genres.map((el) => el).join(", ")}
               </p>
-              <p>
-                <span>Position</span>
-                {singleArtist?.popularity}
-              </p>
+       
               <button>
                 <a
                   href={singleArtist?.external_urls?.spotify}
