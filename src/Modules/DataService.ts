@@ -3,40 +3,40 @@ import { Artist, Track, CurrentTrack, User, ArtistMore, RecentTracks } from "./I
 
 const createAxiosInstance = (token: string): AxiosInstance =>
   axios.create({
-    baseURL: "https://api.spotify.com/v1/me",
+    baseURL: "https://api.spotify.com/v1",
     headers: { Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json' },
   });
 
 const getUserData = async (token: string) => {
-  const response = await createAxiosInstance(token).get<User>("");
+  const response = await createAxiosInstance(token).get<User>("/me");
   return response.data;
 };
 
 const getCurrentTrack = async (token: string) => {
   const response = await createAxiosInstance(token).get<CurrentTrack>(
-    "/player/currently-playing"
+    "/me/player/currently-playing"
   );
   return response.data;
 };
 
 const getTopTracks = async (token: string, timeRange: string) => {
   const response = await createAxiosInstance(token).get<{ items: Track[] }>(
-    `/top/tracks?time_range=${timeRange}&limit=10`
+    `/me/top/tracks?time_range=${timeRange}&limit=10`
   );
   return response.data.items;
 };
 
 const getTopArtists = async (token: string, timeRange: string) => {
   const response = await createAxiosInstance(token).get<{ items: Artist[] }>(
-    `/top/artists?time_range=${timeRange}&limit=10`
+    `/me/top/artists?time_range=${timeRange}&limit=10`
   );
   return response.data.items;
 };
 
 const getRecentTracks = async (token: string) => {
   const response = await createAxiosInstance(token).get<{ items: RecentTracks[] }>(
-    "player/recently-played?limit=10"
+    "/me/player/recently-played?limit=10"
   );
   return response.data.items;
 }
