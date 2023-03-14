@@ -4,7 +4,8 @@ import {
   ArtistMore,
   Track,
   CurrentTrack,
-  User
+  User,
+  RecentTracks
 } from "../Modules/Interfaces";
 import "../App.css";
 import { LoginContext } from "./LogIn";
@@ -13,8 +14,9 @@ import {
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
+  getArtistInfo,
   getRecentTracks,
-  getArtistInfo
+
 } from "../Modules/DataService";
 
 const Spotify: React.FC = () => {
@@ -26,7 +28,7 @@ const Spotify: React.FC = () => {
   const [tracksLong, setTracksLong] = useState<Track[]>([]);
   const [artistsLong, setArtistsLong] = useState<Artist[]>([]);
   const [userData, setUserData] = useState<User>();
-  const [recentTracks, setRecentTracks] = useState<any[]>([]);
+  const [recentTracks, setRecentTracks] = useState<RecentTracks[]>([]);
 
   const [switchDivs, setSwitchDivs] = useState<boolean>(false);
   const [term, setTerm] = useState<string>("Show Long Term");
@@ -38,9 +40,8 @@ const Spotify: React.FC = () => {
 
   const showModal = async (artistid: string) => {
     const data = await getArtistInfo(token, artistid);
-    console.log(data)
-    setSingleArtist(data)
-  }
+    setSingleArtist(data);
+  };
 
   // API CALLS
   useEffect(() => {
@@ -66,12 +67,9 @@ const Spotify: React.FC = () => {
       setRecentTracks(recentTracks);
     };
     fetchData();
-    console.log(recentTracks)
-    
   }, [token]);
 
   return (
-    <>
     <>
       <div className="wrapper">
         <header>
@@ -141,7 +139,7 @@ const Spotify: React.FC = () => {
                 );
               })}
 
-              {singleArtist ? (  //Crude display of a modal, shows up if there is data needs conditional rendering
+              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
                 <div className="artist-modal">
                   <div className="artist-detail">
                     <p>{singleArtist?.name}</p>
@@ -170,25 +168,23 @@ const Spotify: React.FC = () => {
                 </div>
               ))}
             </div>
-             </div>
-               
-            ) : (
-
-    
-              <div className="long-term">
-                <div className="top-artists-long">
-                  <h3>Top Artists Long Term</h3>
-                  {artistsLong.map((artistL) => (
-                    <div
-                      className="list-div"
-                      key={artistL.id}
-                      onClick={() => getArtistInfo(artistL.id, artistL.name)}
-                    >
-                      <img src={artistL.images[0].url} alt={artistL.name} />
-                      <p>{artistL.name}</p>
-                    </div>
-                  ))}
+          </div>
+        ) : (
+          <div className="long-term">
+            <div className="top-artists-long">
+              <h3>Top Artists Long Term</h3>
+              {artistsLong.map((artistL) => (
+                <div
+                  className="list-div"
+                  key={artistL.id}
+                  onClick={() => getArtistInfo(artistL.id, artistL.name)}
+                >
+                  <img src={artistL.images[0].url} alt={artistL.name} />
+                  <p>{artistL.name}</p>
                 </div>
+              ))}
+            </div>
+
 
                 <div className="top-tracks-long">
                   <h3>Top Tracks Long Term</h3>
@@ -207,8 +203,8 @@ const Spotify: React.FC = () => {
           <div className="recent-tracks">
             <h3>Recently Played Tracks</h3>
               {recentTracks.map((track) => (
-                <div className="list-div" key={track.played_at}>
-                <img src={track.track.album.images[2].url} alt="album cover" /> <p>{track.track.artists[0].name} - {track.track.name} </p>
+                <div className="list-div" key={track.track.id}>
+                <img src={track.track.album.images[0].url} alt="album cover" /> <p>{track.track.album.artists[0].name} - {track.track.name} </p>
               </div>
               ))}
             </div>
@@ -219,8 +215,54 @@ const Spotify: React.FC = () => {
             <button>Log Out</button>
           </a>
         </div>
-      
-    </>
+      {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
+        <div
+          className="artist-modal"
+          onClick={() => setSingleArtist(undefined)}
+        >
+          <div className="artist-detail">
+            <div>
+              <img
+                src={singleArtist?.images[0]?.url}
+                alt={singleArtist?.name}
+              />
+            </div>
+
+            <div className="details">
+              <h2>{singleArtist?.name}</h2>
+
+              <p>
+                <span>Type</span>
+                {singleArtist?.type}
+              </p>
+              <p>
+                <span>Followers</span>
+                {singleArtist?.followers?.total.toLocaleString()}
+              </p>
+
+              <p>
+                <span>Genres</span>
+                {singleArtist?.genres.map((el) => el).join(", ")}
+              </p>
+              <p>
+                <span>Position</span>
+                {singleArtist?.popularity}
+              </p>
+              <button>
+                <a
+                  href={singleArtist?.external_urls?.spotify}
+                  target="_blank noreferer"
+                >
+                  View Profile
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+
     </>
   );
 };

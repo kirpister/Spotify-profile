@@ -6,10 +6,11 @@ interface Artist {
 
 interface ArtistMore {
   id: string;
+  external_urls: { spotify: string };
   name: string;
   type: string;
   images: { url: string }[];
-  followers: number;
+  followers: { url: null; total: number };
   genres: string[];
   popularity: number;
 }
@@ -37,22 +38,22 @@ interface User {
 
 interface RecentTracks {
   track: {
-    artists: [
-      {
-        name: string;
-      }
-    ];
-    images: [
-      {
-        url: string;
-      }
-    ];
+    album: {
+      artists: [
+        {
+          name: string;
+        }
+      ];
+      images: [
+        {
+          url: string;
+        }
+      ];
+    };
     name: string;
     id: string;
     track_number: number;
   };
 }
 
-
 export type { Artist, ArtistMore, Track, CurrentTrack, User, RecentTracks };
-
