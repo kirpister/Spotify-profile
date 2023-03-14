@@ -148,16 +148,50 @@
 
 .switch-btn-cont {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .switch-btn  {
   background: transparent;
   border: 1px solid rgb(118, 255, 118);
   padding: .9rem;
-  margin: 5rem 0 -5rem 0;
+  margin: 5rem 0 -5rem 6rem;
 }
 
+
+/* USER */
+
+.user-img img {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.user-img {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+/* RECENT TRACKS */
+
+.recent-tracks {
+  border-radius: 1rem;
+  background-color: #25252587;
+  width: 85vw;
+  padding: 1.5rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.recent-tracks img {
+  width: 60px;
+  margin: .5rem;
+}
+
+.recent-tracks p {
+  margin-left: .5rem;
+}
 
 
 /* MOBILE */

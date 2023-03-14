@@ -4,7 +4,7 @@ import {
   ArtistMore,
   Track,
   CurrentTrack,
-  User,
+  User
 } from "../Modules/Interfaces";
 import "../App.css";
 import { LoginContext } from "./LogIn";
@@ -13,6 +13,7 @@ import {
   getCurrentTrack,
   getTopArtists,
   getTopTracks,
+  getRecentTracks,
   getArtistInfo
 } from "../Modules/DataService";
 
@@ -25,6 +26,7 @@ const Spotify: React.FC = () => {
   const [tracksLong, setTracksLong] = useState<Track[]>([]);
   const [artistsLong, setArtistsLong] = useState<Artist[]>([]);
   const [userData, setUserData] = useState<User>();
+  const [recentTracks, setRecentTracks] = useState<any[]>([]);
 
   const [switchDivs, setSwitchDivs] = useState<boolean>(false);
   const [term, setTerm] = useState<string>("Show Long Term");
@@ -44,26 +46,32 @@ const Spotify: React.FC = () => {
   useEffect(() => {
     if (!token) return;
     const fetchData = async () => {
-      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong] =
-        await Promise.all([
-          getUserData(token),
-          getCurrentTrack(token),
-          getTopArtists(token, "short_term"),
-          getTopArtists(token, "long_term"),
-          getTopTracks(token, "short_term"),
-          getTopTracks(token, "long_term"),
-        ]);
+
+      const [userData, currentTrack, artists, artistsLong, tracks, tracksLong, recentTracks] = await Promise.all([
+        getUserData(token),
+        getCurrentTrack(token),
+        getTopArtists(token, "short_term"),
+        getTopArtists(token, "long_term"),
+        getTopTracks(token, "short_term"),
+        getTopTracks(token, "long_term"),
+        getRecentTracks(token), 
+      ]);
+  
       setUserData(userData);
       setCurrentTrack(currentTrack);
       setArtists(artists);
       setArtistsLong(artistsLong);
       setTracks(tracks);
       setTracksLong(tracksLong);
+      setRecentTracks(recentTracks);
     };
     fetchData();
+    console.log(recentTracks)
+    
   }, [token]);
 
   return (
+    <>
     <>
       <div className="wrapper">
         <header>
@@ -91,6 +99,9 @@ const Spotify: React.FC = () => {
             {" "}
             Hello, <span>{userData?.display_name}</span>
           </h2>
+        </div>
+        <div className="user-img">
+          <img src={userData?.images[0].url} alt="user-img"/>
         </div>
         {currentTrack ? (
           <div className="current-track">
@@ -147,6 +158,8 @@ const Spotify: React.FC = () => {
               )}
             </div>
 
+
+
             <div className="top-tracks">
               <h3>Top Tracks Short Term</h3>
               {tracks.map((track) => (
@@ -157,58 +170,57 @@ const Spotify: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
-        ) : (
-          <div className="long-term">
-            <div className="top-artists-long">
-              <h3>Top Artists Long Term</h3>
-              {artistsLong.map((artistL) => (
-                <div
-                  className="list-div"
-                  key={artistL.id}
-                  onClick={() => { showModal(artistL.id) }}
-                >
-                  <img src={artistL.images[0].url} alt={artistL.name} />
-                  <p>{artistL.name}</p>
-                </div>
-              ))}
-              
-              {singleArtist ? ( //Crude display of a modal, shows up if there is data needs conditional rendering
-                <div className="artist-modal">
-                  <div className="artist-detail">
-                    <p>{singleArtist?.name}</p>
-                    <img
-                      src={singleArtist?.images[0]?.url}
-                      alt={singleArtist?.name}
-                    />
-                    <p>{singleArtist?.type}</p>
-                    <p>{singleArtist?.popularity}</p>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+             </div>
+               
+            ) : (
 
-            <div className="top-tracks-long">
-              <h3>Top Tracks Long Term</h3>
-              {tracksLong.map((trackL) => (
-                <div className="list-div" key={trackL.id}>
-                  <img src={trackL.album.images[0].url} alt={trackL.name} />
-                  <p>{trackL.artists[0].name} -</p>
-                  <span>{trackL.name}</span>
+    
+              <div className="long-term">
+                <div className="top-artists-long">
+                  <h3>Top Artists Long Term</h3>
+                  {artistsLong.map((artistL) => (
+                    <div
+                      className="list-div"
+                      key={artistL.id}
+                      onClick={() => getArtistInfo(artistL.id, artistL.name)}
+                    >
+                      <img src={artistL.images[0].url} alt={artistL.name} />
+                      <p>{artistL.name}</p>
+                    </div>
+                  ))}
                 </div>
+
+                <div className="top-tracks-long">
+                  <h3>Top Tracks Long Term</h3>
+                  {tracksLong.map((trackL) => (
+                    <div className="list-div" key={trackL.id}>
+                      <img src={trackL.album.images[0].url} alt={trackL.name} />
+                      <p>{trackL.artists[0].name} -</p>
+                      <span>{trackL.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>   
+
+          <div className="recent-tracks">
+            <h3>Recently Played Tracks</h3>
+              {recentTracks.map((track) => (
+                <div className="list-div" key={track.played_at}>
+                <img src={track.track.album.images[2].url} alt="album cover" /> <p>{track.track.artists[0].name} - {track.track.name} </p>
+              </div>
               ))}
             </div>
-          </div>
-        )}
-
+            
+  
         <div className="log-out">
           <a href="https://accounts.spotify.com/fi/status">
             <button>Log Out</button>
           </a>
         </div>
-      </div>
+      
+    </>
     </>
   );
 };
