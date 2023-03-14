@@ -6,7 +6,6 @@ With this app built with React and TypeScipt you can have a look at the top trac
 
 - React
   - useContext
-  - Custom Hooks
 - TypeScript
 - Spotify API
 - HTML
