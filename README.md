@@ -1,3 +1,4 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IlyaPonomarenko_ts-project-1&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IlyaPonomarenko_ts-project-1)[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=IlyaPonomarenko_ts-project-1&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=IlyaPonomarenko_ts-project-1)[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=IlyaPonomarenko_ts-project-1&metric=bugs)](https://sonarcloud.io/summary/new_code?id=IlyaPonomarenko_ts-project-1)
 ## Spotify Profile with TypeScript & REACT
 
 With this app built with React and TypeScipt you can have a look at your top tracks and artists, see currently playing track and 10 recent tracks listened. 
