@@ -12,6 +12,11 @@ With this app built with React and TypeScipt you can have a look at your top tra
 - HTML
 - CSS
 
+### Screenshot
+
+![Näyttökuva 2023-3-20 kello 14 10 28](https://user-images.githubusercontent.com/77112303/226335441-2349c043-35f9-43fe-8ccc-c9f4364a002e.png)
+
 ### Contributors 
 
 [Jenni Alanko](https://github.com/kirpister) | [Ilya Ponomarenko](https://github.com/IlyaPonomarenko) | [Vijay K.C.](https://github.com/kcvijay)
+
